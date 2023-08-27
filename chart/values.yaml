@@ -1,5 +1,5 @@
 # Global Values
-repoUrl: 'https://github.com/aws-samples/eks-blueprints-add-ons.git'
+repoUrl: 'https://github.com/corsound/eks-blueprints-add-ons.git'
 targetRevision: HEAD
 region: ''
 account: ''
@@ -9,13 +9,13 @@ argoNamespace: ''
 argoProject: ''
 
 # Agones Values
-agones: 
-  enable: false 
+agones:
+  enable: false
   createNamespace: true
 
 # App Mesh Values
-appMesh: 
-  enable: false 
+appMesh:
+  enable: false
   createNamespace: true
 
 # Calico Values
@@ -125,6 +125,13 @@ grafana:
   serviceAccount:
     create: false
 
+loki:
+  enable: false
+  createNamespace: true
+  serviceAccountName:
+  serviceAccount:
+    create: false
+
 # Vault default Values
 vault:
   enable: false
@@ -228,7 +235,7 @@ kubeStateMetrics:
 promtheusNodeExporter:
   enable: false
   serviceAccountName:
-  
+
 # Kubernetes Dashboard Values
 kubernetesDashboard:
   enable: false
@@ -275,11 +282,12 @@ reporter:
 # NVIDIA Device Plugin Values
 nvidiaDevicePlugin:
   enable: false
+  createNamespace: true
 
 # Consul Values
 consul:
   enable: false
-  
+
 velero:
   enable: false
 
