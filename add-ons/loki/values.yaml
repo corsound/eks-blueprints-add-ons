@@ -1,0 +1,6 @@
+# for details on all options
+# https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
+
+serviceAccount:
+  create: false
+  serviceAccountName: loki

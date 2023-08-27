@@ -1,0 +1,36 @@
+{{- if ((.Values.loki).enable) }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: {{ .Values.argoNamespace | default "argocd" }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.argoProject | default "default" }}
+  source:
+    repoURL: {{ required "repoUrl value is required" .Values.repoUrl }}
+    path: add-ons/loki
+    targetRevision: {{ .Values.targetRevision }}
+    helm:
+      # parameters:
+      #   - name: loki.serviceAccount.name
+      #     value: {{ .Values.loki.serviceAccountName }}
+      values: |
+        loki:
+        {{- toYaml .Values.loki | nindent 10 }}
+  destination:
+    server: {{ .Values.destinationServer | default "https://kubernetes.default.svc" }}
+    namespace: loki
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace={{ .Values.loki.createNamespace }}
+    retry:
+      limit: 1
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 1m
+  {{- end -}}
