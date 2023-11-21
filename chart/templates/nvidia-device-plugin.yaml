@@ -18,7 +18,7 @@ spec:
         {{- toYaml .Values.nvidiaDevicePlugin | nindent 10 }}
   destination:
     server: {{ .Values.destinationServer | default "https://kubernetes.default.svc" }}
-    namespace: nvidia-device-plugin
+    namespace: {{ .Values.nvidiaDevicePlugin.namespaceOverwrite | default "nvidia-device-plugin" }}
   syncPolicy:
     automated:
       prune: true
